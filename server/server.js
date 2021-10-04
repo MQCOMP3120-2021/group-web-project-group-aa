@@ -6,7 +6,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/',(require,response)=>{
-    response.json(<h1>Server is ready.</h1>)
+    response.send("<h1>Server is ready.</h1>")
 })
 
 const PORT = 3001
