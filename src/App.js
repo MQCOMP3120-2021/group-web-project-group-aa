@@ -9,8 +9,6 @@ function App() {
     axios.get("http://localhost:3001/api/books").then((response) => {
       setBooks(response.data);
     });
-    console.log(456)
-    console.log("Hello")
   }, []);
 
   return (
