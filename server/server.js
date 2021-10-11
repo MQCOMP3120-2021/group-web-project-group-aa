@@ -1,15 +1,33 @@
-const express = require('express');
-const bodyParser = require("body-parser");
-const cors = require('cors');
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const cookiePraser = require('cookie-parser')
+const mongoose = require('mongoose')
+const authRoutes = require('./routes/authRoute')
 
-app.get('/',(require,response)=>{
-    response.send("<h1>Server is ready.</h1>")
+const app = express()
+app.use(cors())
+app.use(bodyParser.json())
+app.use(express.json())
+app.use(cookiePraser())
+//middleware
+app.use(express.static('public'))
+
+//DB connection
+const dbUrl =
+	'mongodb+srv://batman:Batman007@cluster0.gjjup.mongodb.net/books?retryWrites=true&w=majority'
+mongoose
+	.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+	.then(result => console.log('db connected'))
+	.catch(err => console.log('db connection error', err))
+
+//Auth api routes
+app.use(authRoutes)
+
+app.get('/', (require, response) => {
+	response.send('<h1>Server is ready.</h1>')
 })
-
-const PORT = 3001
-app.listen(PORT, ()=>{
-    console.log(`Server running on port ${PORT}`)
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+	console.log(`Server running on port ${PORT}`)
 })
