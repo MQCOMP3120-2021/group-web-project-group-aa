@@ -4,6 +4,7 @@ const cors = require('cors')
 const cookiePraser = require('cookie-parser')
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoute')
+const bookRoutes = require('./routes/bookRoute')
 
 const app = express()
 app.use(cors())
@@ -23,6 +24,7 @@ mongoose
 
 //Auth api routes
 app.use(authRoutes)
+app.use(bookRoutes)
 
 app.get('/', (require, response) => {
 	response.send('<h1>Server is ready.</h1>')
