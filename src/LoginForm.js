@@ -1,41 +1,56 @@
 
 import React, {useState} from 'react'
+import './Login.css'
 
-const LoginForm = ({user, setUser}) => {
+async function loginUser(credentials) {
+    return fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    })
+      .then(data => data.json())
+   }
+   
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+const LoginForm = ({setToken}) => {
 
-    const formHandler = (event) => {
-      event.preventDefault()
-      console.log("Form Submitted", username, password)
-    }
-  
-    if (user) {
-        return (
-            <div className="row">
-                <p>Logged in {user.name}</p>
+    const [username, setUsername] = useState()
+    const [password, setPassword] = useState()
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        const token = await loginUser({
+          username,
+          password
+        });
+        setToken(token);
+      }
+
+      return(
+        <div className="login-wrapper">
+          <h1>Please Log In</h1>
+          <form onSubmit={handleSubmit}>
+            <label>
+              <p>Username</p>
+              <input type="text" onChange={e => setUserName(e.target.value)} />
+            </label>
+            <label>
+              <p>Password</p>
+              <input type="password" onChange={e => setPassword(e.target.value)} />
+            </label>
+            <div>
+              <button type="submit">Submit</button>
             </div>
-        )
-    } else {
-        return (
-            <form onSubmit={formHandler}>
-                    <div className="row">
-                        <div className="four columns">
-                            <label htmlFor="username">Username</label>
-                            <input id="username" type="text" name="username" onChange={e => setUsername(e.target.value)} />
-                        </div>
-                        <div className="four columns">
-                            <label htmlFor="password">Password</label>
-                            <input id="password" name="password" type="password" onChange={e => setPassword(e.target.value)} />
-                        </div>
-                        <div className="three columns">
-                            <input type="submit" value="Login"/>
-                        </div>
-                    </div>
-            </form> 
-            )
+          </form>
+        </div>
+      )
     }
-}
+    
+    Login.propTypes = {
+      setToken: PropTypes.func.isRequired
+    };
+
 
   export default LoginForm
