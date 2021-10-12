@@ -1,6 +1,4 @@
-
 import React, {useState} from 'react'
-
 
 const LoginForm = ({user, setUser}) => {
 
