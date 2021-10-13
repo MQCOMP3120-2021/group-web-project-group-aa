@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react'
-import './Login.css'
+import './App.css'
 
 async function loginUser(credentials) {
     return fetch('http://localhost:3000/login', {
