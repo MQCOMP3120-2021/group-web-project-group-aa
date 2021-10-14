@@ -13,6 +13,7 @@ module.exports.post_books = async (req, res) => {
       author: body.author,
       content: body.content,
       like: body.like,
+      comment: body.comment,
       id: data.books.length   
   }
   data.books.push(newBook) 
