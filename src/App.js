@@ -29,6 +29,7 @@ function App() {
                 books.map(book =>
                     <div>
                         <div>{book.name}</div>
+                        <div>123</div>
                         <div>{book.comment}</div>
                         <div>{book.like}</div>
                         <button onClick={addLike(book)}>like this book</button>
