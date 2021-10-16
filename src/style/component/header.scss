@@ -1,0 +1,65 @@
+.header {
+	height: 70px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	line-height: 70px;
+	border-bottom: 1px solid rgb(236, 232, 232);
+	&__icon {
+		width: 50%;
+		text-align: left;
+		cursor: pointer;
+	}
+	&__search,
+	&__user,
+	&__post {
+		cursor: pointer;
+	}
+	&__search {
+		min-width: 300px;
+		height: 70%;
+	}
+	&__user {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: justify;
+		margin: 0 auto;
+		position: relative;
+
+		.subMenu {
+			display: none;
+			text-align: center;
+			position: absolute;
+			background-color: aqua;
+			width: 150px;
+			top: 75px;
+			box-shadow: 0 2px 8px rgb(211, 208, 208);
+		}
+
+		&:hover {
+			.subMenu {
+				display: block;
+			}
+		}
+	}
+	&__post {
+		box-sizing: border-box;
+		margin: 10px 20px;
+		background-color: #ea6f5a;
+		display: flex;
+		padding: 0 15px 0 8px;
+		color: white;
+		border-radius: 30px;
+		&__img {
+			width: 50px;
+			height: 40px;
+			margin-top: 5px;
+		}
+		&__title {
+			height: 50px;
+			line-height: 50px;
+			display: block;
+		}
+	}
+}
