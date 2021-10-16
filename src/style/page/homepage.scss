@@ -1,0 +1,22 @@
+.homepage {
+	.header {
+		.header__search {
+			.headerSearch {
+				img {
+					top: 18px;
+				}
+			}
+		}
+	}
+	&__body {
+		display: flex;
+		&__right {
+			padding: 50px 0px 0 0px;
+			width: 20%;
+			img {
+				width: 100%;
+				object-fit: cover;
+			}
+		}
+	}
+}
