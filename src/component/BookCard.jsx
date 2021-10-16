@@ -8,11 +8,7 @@ const BookCard = props => {
 		<section className="bookCard">
 			{bookData.map(item => {
 				return (
-					<a
-						key={item.id}
-						className="bookCard__item"
-						href={`/bookDetail/:${1}`}
-					>
+					<a key={item.id} className="bookCard__item" href={`/bookDetail/${1}`}>
 						<div className="bookCard__item__detail">
 							<h4>{item.title}</h4>
 							<p>{item.content}</p>

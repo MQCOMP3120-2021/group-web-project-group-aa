@@ -8,4 +8,15 @@ const tabSwitchData = [
 		tabLable: 'My Books'
 	}
 ]
+
+export const AuthFormData = [
+	{
+		id: 0,
+		tabLable: 'Login'
+	},
+	{
+		id: 1,
+		tabLable: 'Register'
+	}
+]
 export default tabSwitchData

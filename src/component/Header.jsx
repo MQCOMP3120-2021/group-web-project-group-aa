@@ -5,7 +5,8 @@ import writeIcon from '../asset/write.svg'
 import '../style/component/header.scss'
 
 const Header = props => {
-	const { searchBarClass, search, placeholder, username } = props
+	const { searchBarClass, search, placeholder, username, openWrittingModal } =
+		props
 
 	return (
 		<header className="header">
@@ -23,7 +24,7 @@ const Header = props => {
 					<div>logout</div>
 				</div>
 			</div>
-			<div className="header__post">
+			<div className="header__post" onClick={openWrittingModal}>
 				<img src={writeIcon} className="header__post__img" alt="searchIcon" />
 				<span className="header__post__title">Write</span>
 			</div>
