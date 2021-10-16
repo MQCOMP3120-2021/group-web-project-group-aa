@@ -22,7 +22,7 @@ export default class HomePage extends Component {
 				{ id: 1, title: 'pineapple', content: 'okok' },
 				{ id: 2, title: 'pineapple', content: 'okok' }
 			],
-			isOpenWriting: true
+			isOpenWriting: false
 		}
 	}
 
@@ -50,7 +50,7 @@ export default class HomePage extends Component {
 					openWrittingModal={writingModalHandle}
 				/>
 				<div className="homepage__body">
-					<TabSwitch tabOptions={tabSwitchData}>
+					<TabSwitch tabOptions={tabSwitchData} switchTab={() => null}>
 						<BookCard bookData={allbookData} />
 						<BookCard bookData={mybookData} />
 					</TabSwitch>

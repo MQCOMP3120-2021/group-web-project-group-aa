@@ -1,0 +1,34 @@
+.AuthPage {
+	background-color: #f1f1f1;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&__form {
+		border-radius: 25px;
+		background-color: white;
+		box-shadow: 0 0 8px rgba(119, 116, 116, 0.5);
+		width: 40%;
+		height: 40%;
+		&__input {
+			padding: 40px 50px 0 50px;
+			.submitBtn {
+				display: block;
+				padding: 10px 20px;
+				text-align: center;
+				width: 30%;
+				margin: 30px auto 0 auto;
+				border-radius: 20px;
+				color: white;
+			}
+			.Login {
+				background-color: #3194d0;
+			}
+			.Register {
+				background-color: #42c02e;
+			}
+		}
+	}
+}

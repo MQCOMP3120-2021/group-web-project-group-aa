@@ -6,9 +6,9 @@ import Box from '@mui/material/Box'
 
 const TabSwitch = props => {
 	const [value, setValue] = useState(0)
-	const { children, tabOptions } = props
+	const { children, tabOptions, switchTab, isMultiPannel = true } = props
 	const handleChange = (event, newValue) => {
-		console.log(newValue)
+		switchTab(newValue)
 		setValue(newValue)
 	}
 	return (
@@ -20,13 +20,15 @@ const TabSwitch = props => {
 					})}
 				</Tabs>
 			</Box>
-			{tabOptions.map(item => {
-				return (
-					<TabPanel value={value} index={item.id} key={item.id}>
-						{children[item.id]}
-					</TabPanel>
-				)
-			})}
+			{isMultiPannel
+				? tabOptions.map(item => {
+						return (
+							<TabPanel value={value} index={item.id} key={item.id}>
+								{children[item.id]}
+							</TabPanel>
+						)
+				  })
+				: children}
 		</Box>
 	)
 }

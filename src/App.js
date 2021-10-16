@@ -5,7 +5,7 @@ import LoginPage from './pages/loginPage'
 import HomePage from './pages/homepage'
 import BookDetailPage from './pages/bookDetail'
 
-const App = () => {
+const App = props => {
 	return (
 		<div className="App">
 			<BrowserRouter>
