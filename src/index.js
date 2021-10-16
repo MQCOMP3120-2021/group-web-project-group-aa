@@ -4,4 +4,4 @@ import './index.css'
 import App from './App'
 import HomePage from './pages/homepage'
 
-ReactDOM.render(<HomePage />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))
