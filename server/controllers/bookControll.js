@@ -1,8 +1,10 @@
 const jwt = require("jsonwebtoken")
-const Books = require("../models/books")
+const Books = require('../models/books')
+
+
 
 module.exports.get_books = async (req, res) => {
-    res.json(data.books)
+    Books.find({}).then(books => response.json(books))
 }
 
 module.exports.post_books = async (req, res) => {
@@ -13,8 +15,7 @@ module.exports.post_books = async (req, res) => {
       author: body.author,
       content: body.content,
       like: body.like,
-      comment: body.comment,
-      id: data.books.length   
+      comment: body.comment
   }
   data.books.push(newBook) 
   res.json(newBook)
@@ -52,3 +53,17 @@ module.exports.edit_content = async (req, res) => {
   console.log("updated", newBook)
   res.json(newBook)
 }
+
+module.exports.put('/api/books/:id', (request, response) => {
+    Books.updateOne({_id: request.params.id}, {
+        name: request.body.name,
+        comment: request.body.comment,
+        like: request.body.like
+    }, (err, docs) => {
+        if (err) {
+            response.json(err)
+        } else {
+            response.json(request.body)
+        }
+    })
+})

@@ -2,14 +2,14 @@ const { Router } = require('express')
 const bookController = require('../controllers/bookControll')
 const router = Router()
 
-//get all text
-router.get('/api/texts', bookController.get_books)
-//post all text
-router.post('/api/texts', bookController.post_books)
-//get one text
-router.get('/api/texts/:id', bookController.get_singlebook)
-//delete one text
-router.delete('/api/texts/:id', bookController.delete_singlebook)
-//edit one text
-router.put('/api/texts/:id', bookController.edit_content)
+//get all books
+router.get('/api/books', bookController.get_books)
+//add one book
+router.post('/api/books', bookController.post_books)
+//get one book
+router.get('/api/books/:id', bookController.get_singlebook)
+//delete one book
+router.delete('/api/books/:id', bookController.delete_singlebook)
+//edit one book
+router.put('/api/books/:id', bookController.edit_content)
 module.exports = router
