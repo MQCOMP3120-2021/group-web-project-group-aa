@@ -58,7 +58,12 @@ function App() {
 					<h2 className="book-title">{book.title}</h2>
 					<div className="content">{book.content}</div>
 					<h4 className="comments">Comments</h4>
-					<div className="comment-item">{book.comments}</div>
+					{
+						book.comments.map((comment, i) => <div className="comment-item">
+							<div className="comment-number">#{i+1}</div>
+							<div className="comment-content">{comment}</div>
+						</div>)
+					}
 					<div>{book.like}</div>
 					<button onClick={addLike(book)}>like this book</button>
 				</div>

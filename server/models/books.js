@@ -1,9 +1,11 @@
 const mongoose = require('mongoose')
 
 const bookSchema = new mongoose.Schema({
-    name: String,
-    comment: String,
+    title: String,
+    comments: Array,
     like: Number,
+    content: String,
+    author: String,
 })
 
 bookSchema.set('toJSON', {
