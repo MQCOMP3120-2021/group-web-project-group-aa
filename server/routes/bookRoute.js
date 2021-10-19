@@ -22,6 +22,18 @@ router.put('/api/books/:id', (request, response) => {
     })
 })
 
+router.post('/api/books/:id/comments', (request, response) => {
+    Books.updateOne({_id: request.params.id}, {
+        $push: {comments: request.body.comment}
+    }, (err, docs) => {
+        if (err) {
+            response.json(err)
+        } else {
+            response.json(request.body)
+        }
+    })
+})
+
 router.get('/api/books/:id', (request, response) => {
     Books.findById(request.params.id).then(data => response.json(data))
 })

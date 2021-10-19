@@ -61,4 +61,13 @@
 			margin-top: 10px;
 		}
 	}
+	.like-container {
+		text-align: center;
+		color: cornflowerblue;
+		margin-top: 20px;
+		.like-number {
+			display: inline-block;
+			margin: 0 20px;
+		}
+	}
 }
