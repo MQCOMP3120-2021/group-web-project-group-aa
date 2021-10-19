@@ -1,16 +1,25 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import '../style/page/homepage.scss'
+import '../style/component/customModal.scss'
+import Header from "../component/Header";
+import TabSwitch from "../component/tabSwitch/tabSwitch";
+import tabSwitchData from "../tool/tabSwitchData";
+import BookCard from "../component/BookCard";
+import CustomModal from "../component/Modal";
+import MarkDownEditor from "../component/MarkDownEditor";
 
 function App() {
-	const [books, setBooks] = useState([])
+	const [book, setBook] = useState({})
+	const [isOpenWriting, setIsOpenWriting] = useState(false)
 
-	const getBooks = () => {
-		axios.get('http://localhost:3001/api/books').then(response => {
-			setBooks(response.data)
+	const getBook = () => {
+		axios.get('http://localhost:3001/api/books/616533612240667588972728').then(response => {
+			setBook(response.data)
 		})
 	}
 
-	useEffect(getBooks, [])
+	useEffect(getBook, [])
 
 	const addLike = book => () => {
 		axios
@@ -20,22 +29,49 @@ function App() {
 				like: book.like + 1
 			})
 			.then(response => {
-				getBooks()
+				getBook()
 			})
 	}
 
+	const searchHandle = searchText => {
+		console.log(searchText)
+	}
+
+	const writingModalHandle = () => {
+		 setIsOpenWriting(isOpenWriting)
+	}
+
+	const submitNewBooks = e => {
+		console.log(e)
+	}
+
 	return (
-		<div className="App">
-			{books.map(book => (
-				<div>
-					<div>{book.name}</div>
-					<div>123</div>
-					<div>{book.comment}</div>
+		<div className="homepage">
+			<Header
+				searchBarClass="headerSearch"
+				search={e => searchHandle(e)}
+				username="F"
+				openWrittingModal={writingModalHandle}
+			/>
+			<div className="homepage__body">
+				<div className="inner-container">
+					<h2 className="book-title">{book.title}</h2>
+					<div className="content">{book.content}</div>
+					<h4 className="comments">Comments</h4>
+					<div className="comment-item">{book.comments}</div>
 					<div>{book.like}</div>
 					<button onClick={addLike(book)}>like this book</button>
 				</div>
-			))}
+			</div>
+			<CustomModal
+				isOpen={isOpenWriting}
+				closeModal={writingModalHandle}
+				protalClassname="writtingModal"
+			>
+				<MarkDownEditor submitNewBooks={submitNewBooks} />
+			</CustomModal>
 		</div>
+
 	)
 }
 

@@ -28,3 +28,26 @@
 		}
 	}
 }
+
+.inner-container {
+	width: 800px;
+	border: 1px #cccccc solid;
+	border-radius: 5px;
+	margin: 20px auto;
+	padding: 20px;
+
+	.book-title{
+		color: #ea6f5a;
+		text-align: center;
+	}
+
+	.content {
+		margin-top: 20px;
+		text-align: center;
+	}
+
+	.comments {
+		margin-top: 20px;
+		color: #3194d0;
+	}
+}

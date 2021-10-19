@@ -22,4 +22,8 @@ router.put('/api/books/:id', (request, response) => {
     })
 })
 
+router.get('/api/books/:id', (request, response) => {
+    Books.findById(request.params.id).then(data => response.json(data))
+})
+
 module.exports = router
