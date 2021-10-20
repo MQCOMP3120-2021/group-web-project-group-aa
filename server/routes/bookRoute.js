@@ -8,11 +8,29 @@ router.get('/api/books', (request, response) => {
     Books.find({}).then(books => response.json(books))
 })
 
+router.post('/api/books', (request, response) => {
+    const newBook = {
+        title: request.body.title,
+        author: request.body.author,
+        content: request.body.content,
+        like: request.body.like,
+        comment: request.body.comment
+  }
+  data.books.push(newBook) 
+  response.json(newBook)
+})
+
+router.get('/api/books/:id', (request, response) => {
+    Books.findById(request.params.id).then(data => response.json(data))
+})
+
 router.put('/api/books/:id', (request, response) => {
     Books.updateOne({_id: request.params.id}, {
-        name: request.body.name,
-        comment: request.body.comment,
-        like: request.body.like
+        title: request.body.title,
+        author: request.body.author,
+        content: request.body.content,
+        like: request.body.like,
+        comment: request.body.comment
     }, (err, docs) => {
         if (err) {
             response.json(err)
@@ -20,6 +38,19 @@ router.put('/api/books/:id', (request, response) => {
             response.json(request.body)
         }
     })
+})
+
+router.delete('/api/books/:id', (request, response) => {
+    const id = Number(request.params.id)
+    const len = data.books.length
+    data.books = data.books.filter(b => b.id !== id)
+    // check whether we really deleted something and complain if not
+    if (data.books.length < len) {
+        response.json("deleted")
+    } else {
+        response.status(404)
+        response.send("<h1>Book not found</h1>")
+    }
 })
 
 router.post('/api/books/:id/comments', (request, response) => {
@@ -32,10 +63,6 @@ router.post('/api/books/:id/comments', (request, response) => {
             response.json(request.body)
         }
     })
-})
-
-router.get('/api/books/:id', (request, response) => {
-    Books.findById(request.params.id).then(data => response.json(data))
 })
 
 module.exports = router
