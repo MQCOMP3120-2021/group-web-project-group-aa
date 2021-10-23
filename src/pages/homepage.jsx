@@ -8,16 +8,13 @@ import MarkDownEditor from '../component/MarkDownEditor'
 import bookImg from '../asset/book.jpeg'
 import '../style/page/homepage.scss'
 import '../style/component/customModal.scss'
+import axios from "axios";
 
 export default class HomePage extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			allbookData: [
-				{ id: 1, title: 'apple', content: 'this book is all about xxx' },
-				{ id: 2, title: 'apple', content: 'this book is all about xxx' },
-				{ id: 3, title: 'apple', content: 'this book is all about xxx' }
-			],
+			allbookData: [],
 			mybookData: [
 				{ id: 1, title: 'pineapple', content: 'okok' },
 				{ id: 2, title: 'pineapple', content: 'okok' }
@@ -37,7 +34,12 @@ export default class HomePage extends Component {
 	submitNewBooks = e => {
 		console.log(e)
 	}
-	componentDidMount() {}
+	componentDidMount() {
+		axios.get('http://localhost:3001/api/books').then(response => {
+			this.setState({allbookData: response.data})
+		})
+	}
+
 	render() {
 		const { searchHandle, writingModalHandle, submitNewBooks } = this
 		const { allbookData, mybookData, isOpenWriting } = this.state

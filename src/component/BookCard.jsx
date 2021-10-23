@@ -1,6 +1,7 @@
 import React from 'react'
 import bookImg from '../asset/bookImg.jpg'
 import '../style/component/bookCard.scss'
+import {Link} from "react-router-dom";
 
 const BookCard = props => {
 	const { bookData = [] } = props
@@ -8,7 +9,7 @@ const BookCard = props => {
 		<section className="bookCard">
 			{bookData.map(item => {
 				return (
-					<a key={item.id} className="bookCard__item" href={`/bookDetail/${1}`}>
+					<Link key={item.id} className="bookCard__item" to={`/bookDetail/${item.id}`}>
 						<div className="bookCard__item__detail">
 							<h4>{item.title}</h4>
 							<p>{item.content}</p>
@@ -16,7 +17,7 @@ const BookCard = props => {
 						<div className="bookCard__item__img">
 							<img src={bookImg} alt="book background"></img>
 						</div>
-					</a>
+					</Link>
 				)
 			})}
 		</section>

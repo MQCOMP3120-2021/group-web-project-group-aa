@@ -5,14 +5,15 @@ import '../style/component/customModal.scss'
 import Header from "../component/Header";
 import CustomModal from "../component/Modal";
 import MarkDownEditor from "../component/MarkDownEditor";
+import {useParams} from "react-router-dom";
 
 function App() {
     const [book, setBook] = useState({})
     const [newComment, setNewComment] = useState("")
     const [isOpenWriting, setIsOpenWriting] = useState(false)
-
+    const {id} = useParams();
     const getBook = () => {
-        axios.get('http://localhost:3001/api/books/616533612240667588972728').then(response => {
+        axios.get('http://localhost:3001/api/books/' + id).then(response => {
             setBook(response.data)
         })
     }
