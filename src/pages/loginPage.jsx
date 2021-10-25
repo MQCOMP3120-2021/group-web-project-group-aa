@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Button from '@mui/material/Button'
+import Notification from '../component/Notification'
 import TabSwitch from '../component/tabSwitch/tabSwitch'
 import TextInput from '../component/TextInput'
 import { AuthFormData } from '../tool/tabSwitchData'
@@ -12,45 +12,42 @@ class LoginPage extends Component {
 		super(props)
 		this.state = {
 			AuthData: { account: '', password: '' },
-			buttonText: 'Login'
+			authMethod: 'Login',
+			isLoginFailed: false,
+			authResponse: ''
 		}
-		console.log(props)
 	}
 	tabSwitch = e => {
 		this.setState({
-			buttonText: e === 0 ? 'Login' : 'Register'
+			authMethod: e === 0 ? 'Login' : 'Register'
 		})
 	}
 	authCheck = async () => {
 		const { history } = this.props
-		const { AuthData, buttonText } = this.state
+		const { AuthData, authMethod } = this.state
 
-		const { status } = await auth(AuthData, buttonText)
-		if (status) {
+		try {
+			await auth(AuthData, authMethod)
 			history.push('/homepage')
-		} else {
-			alert('error')
+		} catch (err) {
+			const { errorText } = err.response.data
+			this.setState({
+				isLoginFailed: true,
+				authResponse: errorText
+			})
 		}
 	}
-	accountHandle = e => {
+	authDataHandle = (input, type) => {
 		this.setState({
 			AuthData: {
 				...this.state.AuthData,
-				account: e
-			}
-		})
-	}
-	passwordHandle = e => {
-		this.setState({
-			AuthData: {
-				...this.state.AuthData,
-				password: e
+				[type]: input
 			}
 		})
 	}
 	render() {
-		const { tabSwitch, authCheck, passwordHandle, accountHandle } = this
-		const { buttonText, AuthData } = this.state
+		const { tabSwitch, authCheck, authDataHandle } = this
+		const { authMethod, isLoginFailed, authResponse } = this.state
 		return (
 			<div className="AuthPage">
 				<div className="AuthPage__form">
@@ -63,19 +60,30 @@ class LoginPage extends Component {
 							<TextInput
 								label="username"
 								type="text"
-								textHandle={accountHandle}
+								textHandle={e => authDataHandle(e, 'account')}
 							/>
 							<TextInput
 								label="password"
 								type="password"
-								textHandle={passwordHandle}
+								textHandle={e => authDataHandle(e, 'password')}
 							/>
-							<a className={`submitBtn ${buttonText}`} onClick={authCheck}>
-								{buttonText}
+							<a
+								href="/#"
+								className={`submitBtn ${authMethod}`}
+								onClick={authCheck}
+							>
+								{authMethod}
 							</a>
 						</div>
 					</TabSwitch>
 				</div>
+				{isLoginFailed && (
+					<Notification
+						color="warning"
+						severity="warning"
+						text={authResponse}
+					/>
+				)}
 			</div>
 		)
 	}

@@ -5,12 +5,13 @@ import TabSwitch from '../component/tabSwitch/tabSwitch'
 import BookCard from '../component/BookCard'
 import CustomModal from '../component/Modal'
 import MarkDownEditor from '../component/MarkDownEditor'
-import bookImg from '../asset/book.jpeg'
+import { getBooks } from '../http/homepageHttp'
+import { Mycontext } from '../context'
 import '../style/page/homepage.scss'
 import '../style/component/customModal.scss'
-import axios from "axios";
 
 export default class HomePage extends Component {
+	static contextType = Mycontext
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -34,9 +35,10 @@ export default class HomePage extends Component {
 	submitNewBooks = e => {
 		console.log(e)
 	}
-	componentDidMount() {
-		axios.get('http://localhost:3001/api/books').then(response => {
-			this.setState({allbookData: response.data})
+	async componentDidMount() {
+		const { data } = await getBooks()
+		this.setState({
+			allbookData: data
 		})
 	}
 
@@ -56,9 +58,6 @@ export default class HomePage extends Component {
 						<BookCard bookData={allbookData} />
 						<BookCard bookData={mybookData} />
 					</TabSwitch>
-					<div className="homepage__body__right">
-						{/* <img src={bookImg} alt="reading" /> */}
-					</div>
 				</div>
 				<CustomModal
 					isOpen={isOpenWriting}
