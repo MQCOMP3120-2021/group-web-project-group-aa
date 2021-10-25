@@ -1,9 +1,30 @@
 .editor {
+	&__title {
+		border: 2px solid black;
+		border-radius: 8px;
+		margin-top:1%; 
+	}
+	&__author {
+		border: 2px solid black;
+		border-radius: 8px;
+		margin-top:1%;
+		margin-bottom:1%;
+	}
+	&__submit {
+		padding: 0.5%;
+		color: white;
+		background-color: red;
+		border-style: outset;
+		border-radius: 12px;
+		text-align:right;
+	}
 	&__content {
+		margin-top:5%;
 		width: 100%;
 		display: block;
 		min-height: 600px;
 		max-height: 600px;
 		overflow-y: scroll;
 	}
+	
 }

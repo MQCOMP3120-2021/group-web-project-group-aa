@@ -4,26 +4,36 @@ const authController = require('../controllers/authControll')
 const router = Router()
 const Books = require('../models/books')
 
+//get all books from database
 router.get('/api/books', (request, response) => {
     Books.find({}).then(books => response.json(books))
 })
 
-router.post('/api/books', (request, response) => {
-    const newBook = {
+//add a new book into database
+router.post('/api/books', (request, response) => { 
+    console.log(request.body)
+    Books.updateOne({
+        _id: request.body.id,
         title: request.body.title,
         author: request.body.author,
         content: request.body.content,
         like: request.body.like,
         comment: request.body.comment
-  }
-  data.books.push(newBook) 
-  response.json(newBook)
+    }, (err, docs) => {
+        if (err) {
+            response.json(err)
+        } else {
+            response.json(request.body)
+        }
+    })
 })
 
+//get single book from database
 router.get('/api/books/:id', (request, response) => {
     Books.findById(request.params.id).then(data => response.json(data))
 })
 
+//edit single book from database
 router.put('/api/books/:id', (request, response) => {
     Books.updateOne({_id: request.params.id}, {
         title: request.body.title,
@@ -40,6 +50,7 @@ router.put('/api/books/:id', (request, response) => {
     })
 })
 
+//delete single book from database(this function may be cancelled)
 router.delete('/api/books/:id', (request, response) => {
     const id = Number(request.params.id)
     const len = data.books.length
@@ -53,6 +64,7 @@ router.delete('/api/books/:id', (request, response) => {
     }
 })
 
+//add a new comment under single book from database
 router.post('/api/books/:id/comments', (request, response) => {
     Books.updateOne({_id: request.params.id}, {
         $push: {comments: request.body.comment}
@@ -65,4 +77,4 @@ router.post('/api/books/:id/comments', (request, response) => {
     })
 })
 
-module.exports = router
+module.exports = router;
