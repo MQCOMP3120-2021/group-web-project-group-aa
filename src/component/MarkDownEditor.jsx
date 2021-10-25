@@ -35,9 +35,10 @@ const MarkDownEditor = props => {
 
 	return (
 		<>
-			<section className="editor">
-				<input type="text" placeholder="title" className="editor__title" />
-				<a onClick={() => submitNewBooks(content)}>submit</a>
+			<section method="post" className="editor">
+				<input type="text" placeholder="title" className="editor__title" /><br></br>
+				<input type="text" placeholder="author" className="editor__author"/>
+				<a className="editor__submit" onClick={() => submitNewBooks(content)}>submit</a><br></br>
 				<div ref={quillRef} className="editor__content" />
 			</section>
 		</>
