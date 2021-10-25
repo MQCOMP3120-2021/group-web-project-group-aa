@@ -10,19 +10,22 @@ router.get('/api/books', (request, response) => {
 })
 
 //add a new book into database
-router.post('/api/books', (request, response) => {
-    const body = request.body
-    console.log(body)
-    const newBook = {
-        _id: body.id,
-        title: body.title,
-        author: body.author,
-        content: body.content,
-        like: body.like,
-        comment: body.comment
-    };
-    Books.insertOne(newBook)
-    response.json(newBook)
+router.post('/api/books', (request, response) => { 
+    console.log(request.body)
+    Books.updateOne({
+        _id: request.body.id,
+        title: request.body.title,
+        author: request.body.author,
+        content: request.body.content,
+        like: request.body.like,
+        comment: request.body.comment
+    }, (err, docs) => {
+        if (err) {
+            response.json(err)
+        } else {
+            response.json(request.body)
+        }
+    })
 })
 
 //get single book from database
