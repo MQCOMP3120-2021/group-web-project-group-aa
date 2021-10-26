@@ -1,19 +1,24 @@
 const mongoose = require('mongoose')
 
 const bookSchema = new mongoose.Schema({
-    title: String,
-    comments: Array,
-    like: Number,
-    content: String,
-    author: String,
+	title: String,
+	comments: Array,
+	like: Array,
+	content: String,
+	author: String
 })
+
+// bookSchema.static.getAllBooks = async function () {
+// 	const allBooks = await this.find().toArray
+// 	return allBooks
+// }
 
 bookSchema.set('toJSON', {
-    transform: (document, returnedObject) => {
-        returnedObject.id = returnedObject._id.toString()
-        delete returnedObject._id
-        delete returnedObject.__v
-    }
+	transform: (document, returnedObject) => {
+		returnedObject.id = returnedObject._id.toString()
+		delete returnedObject._id
+		delete returnedObject.__v
+	}
 })
-
-module.exports = mongoose.model('books', bookSchema)
+const Books = mongoose.model('books', bookSchema)
+module.exports = Books

@@ -16,20 +16,17 @@ app.use(express.static('public'))
 
 //DB connection
 const dbUrl =
-    'mongodb+srv://batman:Batman007@cluster0.gjjup.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+	'mongodb+srv://batman:Batman007@cluster0.gjjup.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 mongoose
-    .connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(result => console.log('db connected'))
-    .catch(err => console.log('db connection error', err))
+	.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+	.then(result => console.log('db connected'))
+	.catch(err => console.log('db connection error', err))
 
 //Auth api routes
 app.use(authRoutes)
 app.use(bookRoutes)
 
-app.get('/', (require, response) => {
-    response.send('<h1>Server is ready.</h1>')
-})
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+	console.log(`Server running on port ${PORT}`)
 })
