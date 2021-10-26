@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.scss'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Provider from './context/provider'
+import { Provider } from './context/provider'
 import LoginPage from './pages/loginPage'
 import HomePage from './pages/homepage'
 import BookDetailPage from './pages/bookDetail'
