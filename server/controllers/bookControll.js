@@ -4,7 +4,7 @@ const isEmpty = require('lodash/isEmpty')
 module.exports.allBooks = async (req, res) => {
 	try {
 		const result = await Books.find()
-		res.status(200).json({ result })
+		res.status(200).json(result)
 	} catch (err) {
 		res.status(500).json('internal system error --book')
 	}
@@ -90,7 +90,7 @@ module.exports.likedBook = async (req, res) => {
 	const { userid } = req.params
 	try {
 		const result = await Books.find({ like: userid })
-		res.status(200).json({ result })
+		res.status(200).json(result)
 	} catch (err) {
 		res.status(500).json('cant find --book')
 	}

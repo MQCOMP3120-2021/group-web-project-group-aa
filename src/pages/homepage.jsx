@@ -56,8 +56,8 @@ export default class HomePage extends Component {
 		const allBooks = await getBooks()
 		const favoriteBooks = await bookLiked(userId)
 		this.setState({
-			allbookData: allBooks.data.result,
-			favoritebookData: favoriteBooks.data.result
+			allbookData: allBooks.data,
+			favoritebookData: favoriteBooks.data
 		})
 	}
 
