@@ -12,7 +12,7 @@ app.use(bodyParser.json())
 app.use(express.json())
 app.use(cookiePraser())
 //middleware
-app.use(express.static('public'))
+app.use(express.static('build'))
 
 //DB connection
 const dbUrl =
