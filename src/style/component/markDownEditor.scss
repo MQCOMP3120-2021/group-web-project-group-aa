@@ -1,14 +1,33 @@
 .editor {
+	&__action {
+		margin-bottom: 10px;
+		display: flex;
+		justify-content: space-between;
+		button {
+			cursor: pointer;
+			color: #fff;
+			background-color: #ec7259;
+			border-color: #ec7259;
+			overflow: none;
+			border: none;
+			border-radius: 30px;
+			padding: 10px;
+			&:disabled {
+				opacity: 0.4;
+			}
+		}
+	}
 	&__title {
-		border: 2px solid black;
-		border-radius: 8px;
-		margin-top:1%; 
+		padding: 0 16px;
+		border: 1px solid rgb(224, 222, 222);
+		outline: none;
+		width: 80%;
 	}
 	&__author {
 		border: 2px solid black;
 		border-radius: 8px;
-		margin-top:1%;
-		margin-bottom:1%;
+		margin-top: 1%;
+		margin-bottom: 1%;
 	}
 	&__submit {
 		padding: 0.5%;
@@ -16,15 +35,14 @@
 		background-color: red;
 		border-style: outset;
 		border-radius: 12px;
-		text-align:right;
+		text-align: right;
 	}
 	&__content {
-		margin-top:5%;
+		margin-top: 5%;
 		width: 100%;
 		display: block;
 		min-height: 50vh;
 		max-height: 50vh;
 		overflow-y: scroll;
 	}
-	
 }

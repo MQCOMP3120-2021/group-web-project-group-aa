@@ -5,7 +5,7 @@ const tabSwitchData = [
 	},
 	{
 		id: 1,
-		tabLable: 'My Books'
+		tabLable: 'My Favorite'
 	}
 ]
 

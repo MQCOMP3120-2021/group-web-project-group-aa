@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import isEmpty from 'lodash/isEmpty'
 import { useQuill } from 'react-quilljs'
+import Loading from './Loading'
 import '../style/component/markDownEditor.scss'
 import 'quill/dist/quill.snow.css'
 const MarkDownEditor = props => {
@@ -21,10 +23,9 @@ const MarkDownEditor = props => {
 		]
 	}
 	const { quill, quillRef } = useQuill({ theme, modules })
-
+	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
-	const { submitNewBooks } = props
-
+	const { submitNewBooks, isSubmitting } = props
 	useEffect(() => {
 		if (quill) {
 			quill.on('text-change', () => {
@@ -35,10 +36,23 @@ const MarkDownEditor = props => {
 
 	return (
 		<>
-			<section method="post" className="editor">
-				<input type="text" placeholder="title" className="editor__title" /><br></br>
-				<input type="text" placeholder="author" className="editor__author"/>
-				<a className="editor__submit" onClick={() => submitNewBooks(content)}>submit</a><br></br>
+			<section className="editor">
+				<div className="editor__action">
+					<input
+						type="text"
+						placeholder="title"
+						className="editor__title"
+						onChange={e => {
+							setTitle(e.target.value)
+						}}
+					/>
+					<button
+						onClick={() => submitNewBooks(title, content)}
+						disabled={isEmpty(content) || isEmpty(title)}
+					>
+						{isSubmitting ? <Loading /> : 'submit'}
+					</button>
+				</div>
 				<div ref={quillRef} className="editor__content" />
 			</section>
 		</>
