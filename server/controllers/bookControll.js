@@ -16,8 +16,9 @@ module.exports.addBooks = async (req, res) => {
 	const bookData = { title, author, content, like, comment }
 
 	try {
-		const result = await Books.create(bookData)
-		res.status(200).json({ result })
+		await Books.create(bookData)
+		const result = await Books.find()
+		res.status(200).json(result)
 	} catch (err) {
 		res.status(500).json('internal system error --book')
 	}
@@ -27,7 +28,7 @@ module.exports.findBooks = async (req, res) => {
 	const { id } = req.params
 	try {
 		const result = await Books.findById(id)
-		res.status(200).json({ result })
+		res.status(200).json(result)
 	} catch (err) {
 		res.status(500).json('internal system error --book')
 	}
@@ -36,21 +37,22 @@ module.exports.findBooksByTitle = async (req, res) => {
 	const { titleText } = req.params
 	try {
 		const result = await Books.find({ title: titleText })
-		res.status(200).json({ result })
+		res.status(200).json(result)
 	} catch (err) {
 		res.status(500).json('internal system error --book')
 	}
 }
 module.exports.addComment = async (req, res) => {
-	const { _id, comments, userid } = req.body
+	const { id, commentText, userId } = req.body
 	try {
-		await Books.updateOne(
-			{ _id },
+		await Books.findByIdAndUpdate(
+			{ _id: id },
 			{
-				$push: { comments: { author: userid, comments } }
+				$push: { comments: { author: userId, comments: commentText } }
 			}
 		)
-		res.status(200).json('success')
+		const result = await Books.find({ _id: id })
+		res.status(200).json(result[0])
 	} catch (err) {
 		res.status(500).json('internal system error --book')
 	}
@@ -59,6 +61,7 @@ module.exports.addComment = async (req, res) => {
 module.exports.addLike = async (req, res) => {
 	const { id, userid } = req.params
 	const result = await Books.find({ _id: id, like: userid })
+	let likeStatus = false
 	if (isEmpty(result)) {
 		try {
 			await Books.updateOne(
@@ -67,7 +70,7 @@ module.exports.addLike = async (req, res) => {
 					$push: { like: userid }
 				}
 			)
-			res.status(200).json('liked')
+			likeStatus = true
 		} catch (err) {}
 	} else {
 		try {
@@ -77,9 +80,10 @@ module.exports.addLike = async (req, res) => {
 					$pull: { like: userid }
 				}
 			)
-			res.status(200).json('unliked')
 		} catch (err) {}
 	}
+	const result2 = await Books.find({ _id: id })
+	res.status(200).json({ newdata: result2, likeStatus })
 }
 
 module.exports.likedBook = async (req, res) => {
