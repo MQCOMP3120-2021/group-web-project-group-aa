@@ -1,7 +1,8 @@
 import { Mycontext } from './index'
 import { auth } from '../http/authPageHttp'
+import { withRouter } from 'react-router'
 
-export const Provider = props => {
+const Provider = props => {
 	const { children } = props
 
 	const authCheck = async (userData, method) => {
@@ -10,10 +11,18 @@ export const Provider = props => {
 		localStorage.setItem('userId', data.user)
 	}
 
+	const authLogout = () => {
+		const { history } = props
+		localStorage.removeItem('JWT')
+		localStorage.removeItem('userId')
+		history.push('/')
+	}
+
 	return (
 		<Mycontext.Provider
 			value={{
 				login: authCheck,
+				logout: authLogout,
 				user: {
 					userId: localStorage.getItem('userId'),
 					JWT: localStorage.getItem('JWT')
@@ -24,3 +33,5 @@ export const Provider = props => {
 		</Mycontext.Provider>
 	)
 }
+
+export default withRouter(Provider)

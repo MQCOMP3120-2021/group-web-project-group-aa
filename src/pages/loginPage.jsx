@@ -3,11 +3,13 @@ import Notification from '../component/Notification'
 import TabSwitch from '../component/tabSwitch/tabSwitch'
 import TextInput from '../component/TextInput'
 import { AuthFormData } from '../tool/tabSwitchData'
-import { auth } from '../http/authPageHttp'
 import { withRouter } from 'react-router'
+import { Mycontext } from '../context'
 
 import '../style/page/loginPage.scss'
 class LoginPage extends Component {
+	static contextType = Mycontext
+
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -23,11 +25,11 @@ class LoginPage extends Component {
 		})
 	}
 	authCheck = async () => {
-		const { history } = this.props
 		const { AuthData, authMethod } = this.state
-
+		const { history } = this.props
+		const { login } = this.context
 		try {
-			await auth(AuthData, authMethod)
+			await login(AuthData, authMethod)
 			history.push('/homepage')
 		} catch (err) {
 			const { errorText } = err.response.data
@@ -37,6 +39,7 @@ class LoginPage extends Component {
 			})
 		}
 	}
+
 	authDataHandle = (input, type) => {
 		this.setState({
 			AuthData: {

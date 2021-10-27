@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import isEmpty from 'lodash/isEmpty'
 import tabSwitchData from '../tool/tabSwitchData'
+import Nothing from '../component/notFound'
 import Header from '../component/Header'
 import TabSwitch from '../component/tabSwitch/tabSwitch'
 import BookCard from '../component/BookCard'
@@ -8,6 +10,7 @@ import MarkDownEditor from '../component/MarkDownEditor'
 import { getBooks } from '../http/homepageHttp'
 import { Mycontext } from '../context'
 import '../style/page/homepage.scss'
+import { findBookByTitle, bookLiked, addBook } from '../http/booksPageHttp'
 import '../style/component/customModal.scss'
 
 export default class HomePage extends Component {
@@ -16,38 +19,58 @@ export default class HomePage extends Component {
 		super(props)
 		this.state = {
 			allbookData: [],
-			mybookData: [
-				{ id: 1, title: 'pineapple', content: 'okok' },
-				{ id: 2, title: 'pineapple', content: 'okok' }
-			],
-			isOpenWriting: false
+			favoritebookData: [],
+			isOpenWriting: false,
+			isSubmitting: false
 		}
 	}
 
-	searchHandle = searchText => {
-		console.log(searchText)
-	}
-	writingModalHandle = () => {
-		this.setState({
-			isOpenWriting: !this.state.isOpenWriting
-		})
-	}
-	submitNewBooks = e => {
-		console.log(e)
-	}
-	async componentDidMount() {
-		const { data } = await getBooks()
+	searchHandle = async searchText => {
+		const { data } = await findBookByTitle(searchText)
 		this.setState({
 			allbookData: data
 		})
 	}
 
+	writingModalHandle = () => {
+		this.setState({
+			isOpenWriting: !this.state.isOpenWriting
+		})
+	}
+	submitNewBooks = async (title, content) => {
+		this.setState({
+			isSubmitting: true
+		})
+		const { userId } = this.context.user
+		const author = userId
+		const { data } = await addBook({ title, content, author })
+		this.setState({
+			isSubmitting: false,
+			isOpenWriting: false,
+			allbookData: data
+		})
+	}
+
+	async componentDidMount() {
+		const { userId } = this.context.user
+		const allBooks = await getBooks()
+		const favoriteBooks = await bookLiked(userId)
+		this.setState({
+			allbookData: allBooks.data.result,
+			favoritebookData: favoriteBooks.data.result
+		})
+	}
+
 	render() {
+		const { logout } = this.context
 		const { searchHandle, writingModalHandle, submitNewBooks } = this
-		const { allbookData, mybookData, isOpenWriting } = this.state
+		const { allbookData, favoritebookData, isOpenWriting, isSubmitting } =
+			this.state
+
 		return (
 			<div className="homepage">
 				<Header
+					logout={logout}
 					searchBarClass="headerSearch"
 					search={e => searchHandle(e)}
 					username="F"
@@ -55,8 +78,20 @@ export default class HomePage extends Component {
 				/>
 				<div className="homepage__body">
 					<TabSwitch tabOptions={tabSwitchData} switchTab={() => null}>
-						<BookCard bookData={allbookData} />
-						<BookCard bookData={mybookData} />
+						<section>
+							{isEmpty(allbookData) ? (
+								<Nothing />
+							) : (
+								<BookCard bookData={allbookData} />
+							)}
+						</section>
+						<section>
+							{isEmpty(favoritebookData) ? (
+								<Nothing />
+							) : (
+								<BookCard bookData={favoritebookData} />
+							)}
+						</section>
 					</TabSwitch>
 				</div>
 				<CustomModal
@@ -64,7 +99,10 @@ export default class HomePage extends Component {
 					closeModal={writingModalHandle}
 					protalClassname="writtingModal"
 				>
-					<MarkDownEditor submitNewBooks={submitNewBooks} />
+					<MarkDownEditor
+						submitNewBooks={submitNewBooks}
+						isSubmitting={isSubmitting}
+					/>
 				</CustomModal>
 			</div>
 		)

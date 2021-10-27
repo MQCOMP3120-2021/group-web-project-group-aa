@@ -1,16 +1,16 @@
 import React from 'react'
 import './App.scss'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { Provider } from './context/provider'
+import Provider from './context/provider'
 import LoginPage from './pages/loginPage'
 import HomePage from './pages/homepage'
 import BookDetailPage from './pages/bookDetail'
 
 const App = () => {
 	return (
-		<Provider>
-			<div className="App">
-				<BrowserRouter>
+		<div className="App">
+			<BrowserRouter>
+				<Provider>
 					<Switch>
 						<Route
 							exact
@@ -22,9 +22,9 @@ const App = () => {
 						<Route exact path="/homepage" component={HomePage} />
 						<Route exact path="/bookDetail/:id" component={BookDetailPage} />
 					</Switch>
-				</BrowserRouter>
-			</div>
-		</Provider>
+				</Provider>
+			</BrowserRouter>
+		</div>
 	)
 }
 

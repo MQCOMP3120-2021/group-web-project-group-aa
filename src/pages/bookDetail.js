@@ -1,112 +1,97 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import '../style/page/homepage.scss'
-import '../style/component/customModal.scss'
-import Header from '../component/Header'
-import CustomModal from '../component/Modal'
-import MarkDownEditor from '../component/MarkDownEditor'
+import React, { useEffect, useState, useContext } from 'react'
+import { Mycontext } from '../context/index'
 import { useParams } from 'react-router-dom'
+import isEmpty from 'lodash/isEmpty'
+import Loading from '../component/Loading'
+import { selectedBook, addLike, addComment } from '../http/booksPageHttp'
+
+import likesIcon from '../asset/givealike.svg?inline'
+import '../style/page/bookDetailpage.scss'
 
 function App() {
-	const [book, setBook] = useState({})
-	const [newComment, setNewComment] = useState('')
-	const [isOpenWriting, setIsOpenWriting] = useState(false)
+	const context = useContext(Mycontext)
+	const { userId } = context.user
+	const [book, setBook] = useState([])
+	const [isLike, setIsLike] = useState(false)
+	const [isLoading, setIsLoading] = useState(false)
+	const [commentText, setCommentText] = useState('')
+	const { title, comments, like = [], content } = book
+	const likesAtm = like.length
 	const { id } = useParams()
-	const getBook = () => {
-		axios.get('http://localhost:3001/api/books/' + id).then(response => {
-			setBook(response.data)
-		})
-	}
 
 	useEffect(() => {
-		getBook()
+		const fetchBook = async () => {
+			const { data } = await selectedBook(id)
+			setIsLike(data.like.includes(userId))
+			setBook(data)
+		}
+		fetchBook()
 	}, [])
 
-	const addLike = book => () => {
-		axios
-			.put('http://localhost:3001/api/books/' + book.id, {
-				name: book.name,
-				comment: book.comment,
-				like: book.like + 1
-			})
-			.then(response => {
-				getBook()
-			})
+	const likesHandle = async () => {
+		const { data } = await addLike({ id, userId })
+		const { likeStatus, newdata } = data
+		setBook(newdata[0])
+		setIsLike(likeStatus)
 	}
-
-	const searchHandle = searchText => {
-		console.log(searchText)
-	}
-
-	const writingModalHandle = () => {
-		setIsOpenWriting(isOpenWriting)
-	}
-
-	const submitNewBooks = e => {
-		console.log(e)
-	}
-
-	const handleCommentChange = event => {
-		setNewComment(event.target.value)
-	}
-
-	const handleSubmitComment = event => {
-		axios
-			.post(
-				'http://localhost:3001/api/books/616533612240667588972728/comments',
-				{
-					comment: newComment
-				}
-			)
-			.then(response => {
-				setNewComment('')
-				getBook()
-			})
+	const commentHandle = async () => {
+		setIsLoading(true)
+		const { data } = await addComment({ id, commentText, userId })
+		setBook(data)
+		setIsLoading(false)
+		setCommentText('')
 	}
 
 	return (
-		<div className="homepage">
-			<Header
-				searchBarClass="headerSearch"
-				search={e => searchHandle(e)}
-				username="F"
-				openWrittingModal={writingModalHandle}
-			/>
-			<div className="homepage__body">
-				<div className="inner-container">
-					<h2 className="book-title">{book.title}</h2>
-					<div className="like-container">
-						<span className="like-number"> {book.like} </span>
-						<button onClick={addLike(book)}>Like</button>
+		<main className="detailPage">
+			<div className="detailPage__body">
+				<aside className="detailPage__action">
+					<div
+						className={`detailPage__like detailPage__like--${isLike}`}
+						onClick={() => likesHandle()}
+					>
+						<img src={likesIcon} alt="likes" />
+						<span>{likesAtm}</span>
 					</div>
-					<div className="content">{book.content}</div>
-					<h4 className="comments">Comments</h4>
-					{book.comments &&
-						book.comments.map((comment, i) => (
-							<div className="comment-item">
-								<div className="comment-number">#{i + 1}</div>
-								<div className="comment-content">{comment}</div>
-							</div>
-						))}
-					<div>
-						<textarea
-							rows={10}
-							cols={110}
-							onChange={handleCommentChange}
-							value={newComment}
-						/>
-					</div>
-					<button onClick={handleSubmitComment}>Submit</button>
-				</div>
+				</aside>
+				<section className="detailPage__article">
+					<h1>{title}</h1>
+					<div dangerouslySetInnerHTML={{ __html: content }}></div>
+				</section>
 			</div>
-			<CustomModal
-				isOpen={isOpenWriting}
-				closeModal={writingModalHandle}
-				protalClassname="writtingModal"
-			>
-				<MarkDownEditor submitNewBooks={submitNewBooks} />
-			</CustomModal>
-		</div>
+
+			<section className="detailPage__comment">
+				<div className="detailPage__textarea">
+					<textarea
+						rows={6}
+						placeholder="comment here...."
+						onChange={e => setCommentText(e.target.value)}
+						value={commentText}
+					/>
+					<div className="detailPage__submit">
+						<button
+							onClick={() => commentHandle()}
+							disabled={isEmpty(commentText)}
+						>
+							{isLoading ? <Loading /> : 'submit'}
+						</button>
+					</div>
+				</div>
+				<section className="detailPage__commentContainer">
+					<h3>Comment</h3>
+					{comments &&
+						comments.map((comment, index) => {
+							const { comments } = comment
+							return (
+								<div className="detailPage__commentList" key={index}>
+									<span>author:</span>
+									<p>{comments}</p>
+								</div>
+							)
+						})}
+				</section>
+			</section>
+		</main>
 	)
 }
 
