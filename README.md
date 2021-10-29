@@ -36,11 +36,15 @@ This week we have completed most of the work, each page has bugs fixed, and supp
 ### Week 4 :
 This week we unified the data, which used to be the front-end or back-end test data, and now the data comes from the back-end database. And we improved the CSS design to make the page more beautiful. At the same time, we have refined many functions, such as the "add like" button, users can only add the number of likes once. The "login" part also requires the user to enter a password of more than 8 digits to protect user privacy.
 
+### Week 5 :
+Complete the final error checking, delete some redundant files and codes, and deploy the project on Heroku.
+
 
 # Ⅳ
 
 ## Guide for code
 
+Firstly, the "server" folder is the backend of the entire project, and the "src" is the backend folder of the entire project. The data account used by mangodb is: dereksecondly@gmail.com, and the password is: Batman007.
 
 
 
@@ -51,11 +55,13 @@ This week we unified the data, which used to be the front-end or back-end test d
 
 ## Summary of continuing this project
 
+This project is already a mature web page, with normal functions in all aspects, and the layout design is also biased towards commercialization. If people need to continue to improve to make the page more refined, they can improve the following points:
 
+### 1. 
+Due to time constraints, the page layout is relatively simple, and many places are left blank. The text size and content display are not particularly exquisitely blended. If there is enough time to complete the next improvement, we will add a lot of pictures and text fonts and presentation forms to make the page less monotonous.
 
-
-
-
+### 2.
+The page needs to better interact with the user. For example, a prompt box will pop up to tell the user if the password is incorrect. Including the comments added by the user has not been saved, you can also add a dialog box to prompt the user whether the user needs to save. However, these need more time to complete, if there is more time, the next step we will implement these functions to make the page more comprehensive.
 
 
 # Ⅵ
