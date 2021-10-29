@@ -19,4 +19,4 @@ The entire website framework development stack is roughly divided into front-end
 
 For the use of Github repository, our team divides the data project into 5 different branches. The task items of each team member will be completed in their different project branches, which can effectively avoid data conflicts that may occur when team members submit data together. After the team members complete their task codes, make sure that they can be matched on the main branch if there is no error. Of course, the task of some team members is to manage all the code in the main, so they are approved to directly edit the code of the main branch.
 
-
+[Create React App](https://github.com/facebook/create-react-app).
