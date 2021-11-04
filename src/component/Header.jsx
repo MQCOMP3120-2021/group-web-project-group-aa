@@ -39,7 +39,7 @@ const Header = props => {
 
 				<div className="header__post" onClick={openWrittingModal}>
 					<img src={writeIcon} className="header__post__img" alt="searchIcon" />
-					<span className="header__post__title">Write</span>
+					<span className="header__post__title">Post</span>
 				</div>
 			</div>
 		</header>

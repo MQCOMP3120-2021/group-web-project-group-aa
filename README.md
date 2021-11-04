@@ -1,4 +1,9 @@
 # Ⅰ
+## Guide
+1: run ```npm install```
+2: click `server` script to run the sever
+3: click `start` script to run the web
+
 
 ## Outline
 
@@ -45,6 +50,8 @@ Complete the final error checking, delete some redundant files and codes, and de
 ## Guide for code
 
 Firstly, the "server" folder is the backend of the entire project, and the "src" is the backend folder of the entire project. The data account used by mangodb is: [dereksecondly@gmail.com](https://account.mongodb.com/account/login), and the password is: Batman007.
+Server side: implemented based on MVC framework
+Client side: splite into servals componentens
 
 
 
