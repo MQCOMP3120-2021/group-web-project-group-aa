@@ -1,0 +1,1 @@
+This is the third page. Users can view the detailed information of the book here, and the button in the upper left corner can add likes. After adding likes, the book will be saved to "My Favorites" in the "homepage". At the same time, users can also comment on books and save them.

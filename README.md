@@ -55,9 +55,6 @@ Client side: splite into servals componentens
 
 
 
-
-
-
 # Ⅴ
 
 ## Summary of continuing this project
@@ -79,6 +76,14 @@ The page needs to better interact with the user. For example, a prompt box will 
 
 
 ### Yu Zhang 45675058 :
+
+1.Customized Proposal.
+
+2.Front-end back-end database code connection initialization.
+
+3.Implementation of all the contents of the front-end and back-end database of the "bookdetail" page.
+
+4.Most of the contents in "README.md", "DEPLOYMENT.md" and "SCREENSHOTS" in the final project description.
 
 
 ### Jinjia Bai 44464983 : 
