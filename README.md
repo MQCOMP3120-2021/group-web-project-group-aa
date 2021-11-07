@@ -68,7 +68,7 @@ Due to time constraints, the page layout is relatively simple, and many places a
 The page needs to better interact with the user. For example, a prompt box will pop up to tell the user if the password is incorrect. Including the comments added by the user has not been saved, you can also add a dialog box to prompt the user whether the user needs to save. However, these need more time to complete, if there is more time, the next step we will implement these functions to make the page more comprehensive.
 
 ### 3.
-For this project, we have many other conceived functions that cannot be realized due to limited time. For example, users can comment and discuss after a paragraph of a book, comment on other people's comments, and receive message reminders when others comment on their own comments. 
+For this project, we have many other conceived functions that cannot be realized due to limited time. For example, users can comment and discuss after a paragraph of a book, comment on other people's comments, and receive message reminders when others comment on their own comments. Not only the development of the comment function, the login function will give permissions to those who have not logged in to access the book details, and the search bar can make it fuzzy to query the book name and author name.
 
 
 # Ⅵ
