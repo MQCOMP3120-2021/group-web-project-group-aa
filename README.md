@@ -67,6 +67,9 @@ Due to time constraints, the page layout is relatively simple, and many places a
 ### 2.
 The page needs to better interact with the user. For example, a prompt box will pop up to tell the user if the password is incorrect. Including the comments added by the user has not been saved, you can also add a dialog box to prompt the user whether the user needs to save. However, these need more time to complete, if there is more time, the next step we will implement these functions to make the page more comprehensive.
 
+### 3.
+For this project, we have many other conceived functions that cannot be realized due to limited time. For example, users can comment and discuss after a paragraph of a book, comment on other people's comments, and receive message reminders when others comment on their own comments. 
+
 
 # Ⅵ
 
@@ -91,6 +94,11 @@ The page needs to better interact with the user. For example, a prompt box will 
 
 ### Jinjia Bai 44464983 : 
 
+1.get, find, update and delete API for the book
+
+2.the books submission form and its style
+
+3.Repair and supplement other parts of the css style
 
 ### SANGGON JUNG 45605947 :
 
