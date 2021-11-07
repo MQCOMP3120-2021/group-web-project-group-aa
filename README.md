@@ -73,7 +73,10 @@ The page needs to better interact with the user. For example, a prompt box will 
 ## The role of team members to contribute
 
 ### Yaowen liang 46517995 :
-
+1. git control 
+2. full stack developer
+3. authentication page, home page authtication APIs and homepages APIS 
+4. deployment
 
 ### Yu Zhang 45675058 :
 
